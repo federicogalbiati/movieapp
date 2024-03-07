@@ -1,21 +1,26 @@
-const options = {
-    headers: {
-        Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNmQzMGJjMmQ0NzBlYjQxOTdhMTQxNGRhYTMzMGJhNSIsInN1YiI6IjY1ZTg2YjdhYzE1Zjg5MDE4NjE3NjBjMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gI_TwY6xNM7ohSlp6hPSA9qXy-UH4_iezaeZDWjkis0"
-    },
-};
+import { BASE_URL, OPTIONS } from "./config.js";
 
-export const getTrending = async (baseUrl) => {
-    const response = await fetch(baseUrl + "all/day?language=en-US" , options);
+
+
+export const getTrending = async () => {
+    const response = await fetch(BASE_URL + "trending/all/day?language=en-US" , OPTIONS);
 
     const data = await response.json();
 
     return data;
 }
 
-export const getTrendingMovies = async (baseUrl) => {
-    const responseMovies = await fetch(baseUrl + "movie/day?language=en-US", options);
-
+export const getTrendingMovies = async () => {
+    const responseMovies = await fetch(BASE_URL + "trending/movie/day?language=en-US", OPTIONS);
     const dataMovies = await responseMovies.json();
 
     return dataMovies;
+}
+
+export const getTrendingTvSeries = async () => {
+    const responseTvSeries = await fetch(BASE_URL + "trending/tv/day?language=en-US", OPTIONS);
+
+    const dataTvSeries = await responseTvSeries.json();
+
+    return dataTvSeries;
 }

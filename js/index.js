@@ -1,4 +1,5 @@
-import { getTrending, getTrendingMovies } from "./api/trendingGetters.js";
-import { baseUrl } from "./api/config.js";
-getTrending(baseUrl);
-getTrendingMovies(baseUrl);
+import { getTrending, getTrendingMovies, getTrendingTvSeries } from "./api/trendingGetters.js";
+
+const data = getTrending();
+const dataMovies = getTrendingMovies();
+const dataTvSeries = getTrendingTvSeries();
