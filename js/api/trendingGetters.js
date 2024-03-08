@@ -24,3 +24,14 @@ export const getTrendingTvSeries = async () => {
 
     return dataTvSeries;
 }
+
+const personToSearch = "Therock";
+
+export const getPerson = async () => {
+    const responsePerson = await fetch(BASE_URL + `search?${personToSearch}`, OPTIONS);
+
+    const dataPerson= await responsePerson.json();
+
+    return dataPerson;
+}
+
