@@ -1,46 +1,13 @@
-import { getPerson, getTrending, getTrendingMovies, getTrendingTvSeries } from "./api/trendingGetters.js";
-import dotenv from 'dotenv';
+import { getTrending, getTrendingMovies  } from "./api/trendingGetters.js";
 
+
+/*import dotenv from 'dotenv';
 dotenv.config();
+*/
+getTrending();
+getTrendingMovies();
 
 
-const data = getTrending().then((data) => {
-        //console.log(data)
-    // 1) estrarre l'array dei risultati
-    const arrResult = data.results;
-    // 2) ciclare l'array dei risultati
-    arrResult.forEach(element => {
-    // per ogni elemento stampare in console.log 
-     /**Da aggiungere:
-     * id
-     * poster_path
-     * title
-     * vote_avarage
-     * media_type
-     * release_date
-     */
-     console.log(`${element.id}, ${element.title}, ${element.poster_path}, ${element.vote_average}, ${element.media_type}, ${element.release_date}`);
-    });
-});
-
-const dataMovies = getTrendingMovies().then((dataMovies) => {
-        //console.log(dataMovies)
-    // 1) estrarre l'array dei risultati
-    const arrResultMovies = dataMovies.results;
-    // 2) ciclare l'array dei risultati
-    arrResultMovies.forEach(movie => {
-    // per ogni elemento stampare in console.log 
-     /**Da aggiungere:
-     * id
-     * poster_path
-     * title
-     * vote_avarage
-     * media_type
-     * release_date
-     */
-     console.log(`${movie.id}, ${movie.title}, ${movie.poster_path}, ${movie.vote_average}, ${movie.media_type}, ${movie.release_date}`);
-    });
-});
 const dataTvSeries = getTrendingTvSeries().then((dataTvSeries) => {
         //console.log(dataTvSeries)
     // 1) estrarre l'array dei risultati
