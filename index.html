@@ -4,21 +4,43 @@
         <meta charset="utf-8"/>
         <meta name="viewport"content="width=device-width, initial-scale=1.0">
         <title>Movie App</title>
-        
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <h1 id="header"> Movie Ap</h1>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Film</a></li>
+                    <li><a href="#">Serie TV</a></li>
+                    <li><a href="#">Contattaci</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h1>Movie app</h1>
+            <div id="cards-container">
+                </div>
+        </main>
     </body>
 
 <script type="module">
-    import { fixTitle, addParagraph } from './js/utils/dom.js';
-    import { getTrendingMovies } from './js/api/trendingGetters.js';
-    console.log("prova")
-    fixTitle();
-    addParagraph();
+    createMovieCards
+    import { getTrending,getTrendingMovies,getTrendingTvSeries,getPerson,createMovieCards } from './js/index.js';
+    
+  
 
-    getTrendingMovies();
- 
+    const allData = await getTrending();
+    const movieData = await getTrendingMovies();
+    const tvSeriesData = await getTrendingTvSeries();
+    const personData = await getPerson();
+    
+    createMovieCards(allData);
+    createMovieCards(movieData);
+    createMovieCards(tvSeriesData);
+    createMovieCards(personData);
+
+
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>
