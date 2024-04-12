@@ -7,7 +7,6 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <header>
             <nav>
                 <ul>
                     <li><a href="#">Home</a></li>
@@ -16,31 +15,51 @@
                     <li><a href="#">Contattaci</a></li>
                 </ul>
             </nav>
-        </header>
-        <main>
+        <header>
             <h1>Movie app</h1>
-            <div id="cards-container">
+        </header>   
+            <section class="slider">
+                <h2>Trendings</h2>
+                    <div class="slider-container" id="slider-container-1">
+                    <div class ="container-trendings" id="container-trendings">
                 </div>
-        </main>
+                <div class="scrollbar" id="scrollbar-1"></div>
+            </section>
+            <section class="slider">
+                <h3>Movie Trendings</h3>
+                    <div class="slider-container" id="slider-container-2">
+                    <div class ="container-movies" id="container-movies">
+                </div>
+                <div class="scrollbar" id="scrollbar-2"></div>
+            </section>
+            <section class="slider">
+                <h3>TvSeries Trendings</h3>
+                    <div class="slider-container" id="slider-container-3">
+                    <div class ="container-tvseries" id="container-tvseries">
+                </div>
+                <div class="scrollbar" id="scrollbar-3"></div>
+            </section>
+           
     </body>
 
 <script type="module">
     createMovieCards
     import { getTrending,getTrendingMovies,getTrendingTvSeries,getPerson,createMovieCards } from './js/index.js';
     
-  
+    //const person = "DwayneJohnson";
 
     const allData = await getTrending();
     const movieData = await getTrendingMovies();
     const tvSeriesData = await getTrendingTvSeries();
-    const personData = await getPerson();
+    //const personData = await getPerson(DwayneJohnson);
     
-    createMovieCards(allData);
-    createMovieCards(movieData);
-    createMovieCards(tvSeriesData);
-    createMovieCards(personData);
+    createMovieCards(allData, "container-trendings");
+    createMovieCards(movieData, "container-movies");
+    createMovieCards(tvSeriesData, "container-tvseries");
+    //createMovieCards(personData, "container-person");
 
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./js/dom_manipulator/createList.js"></script>
 </html>
