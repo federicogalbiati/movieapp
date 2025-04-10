@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8"/>
-        <meta name="viewport"content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Movie App</title>
         <link rel="stylesheet" href="styles.css">
     </head>
@@ -39,27 +39,69 @@
                 </div>
                 <div class="scrollbar" id="scrollbar-3"></div>
             </section>
+            <section class="slider">
+                <h3>Famous People</h3>
+                <div class="slider-container" id="slider-container-4">
+                    <div class="container-person" id="container-person">
+                    </div>
+                </div>
+                <div class="scrollbar" id="scrollbar-4"></div>
+            </section>
            
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./js/dom_manipulator/createList.js"></script>
+        <script src="./js/dom_manipulator/personCards.js"></script>
+        
+        <!-- Use normal script instead of module -->
+        <script>
+            // Using fetch directly instead of importing
+            const BASE_URL = "https://api.themoviedb.org/3/";
+            const OPTIONS = {
+                headers: {
+                    "content-type": "application/json",
+                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNmQzMGJjMmQ0NzBlYjQxOTdhMTQxNGRhYTMzMGJhNSIsInN1YiI6IjY1ZTg2YjdhYzE1Zjg5MDE4NjE3NjBjMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gI_TwY6xNM7ohSlp6hPSA9qXy-UH4_iezaeZDWjkis0`
+                }
+            };
+            
+            // Fetch all data
+            async function initialize() {
+                try {
+                    // Trending all
+                    const allResponse = await fetch(BASE_URL + "trending/all/day?language=en-US", OPTIONS);
+                    const allData = await allResponse.json();
+                    createMovieCards(allData, "container-trendings");
+                    
+                    // Trending movies
+                    const moviesResponse = await fetch(BASE_URL + "trending/movie/day?language=en-US", OPTIONS);
+                    const movieData = await moviesResponse.json();
+                    createMovieCards(movieData, "container-movies");
+                    
+                    // Trending TV series
+                    const tvSeriesResponse = await fetch(BASE_URL + "trending/tv/day?language=en-US", OPTIONS);
+                    const tvSeriesData = await tvSeriesResponse.json();
+                    createMovieCards(tvSeriesData, "container-tvseries");
+                    
+                    // Person data - using Keanu Reeves instead of Tom Cruise
+                    const personResponse = await fetch(BASE_URL + "search/person?query=Keanu%20Reeves&language=en-US", OPTIONS);
+                    const personData = await personResponse.json();
+                    
+                    // Get Keanu Reeves movies
+                    if (personData.results && personData.results.length > 0) {
+                        const keanId = personData.results[0].id;
+                        const personMoviesResponse = await fetch(BASE_URL + `person/${keanId}/movie_credits?language=en-US`, OPTIONS);
+                        const personMoviesData = await personMoviesResponse.json();
+                        // Combine person data with their movies
+                        personData.movies = personMoviesData.cast || [];
+                    }
+                    
+                    createPersonCards(personData, "container-person");
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                }
+            }
+            
+            // Call initialize when DOM is loaded
+            document.addEventListener('DOMContentLoaded', initialize);
+        </script>
     </body>
-
-<script type="module">
-    createMovieCards
-    import { getTrending,getTrendingMovies,getTrendingTvSeries,getPerson,createMovieCards } from './js/index.js';
-    
-    //const person = "DwayneJohnson";
-
-    const allData = await getTrending();
-    const movieData = await getTrendingMovies();
-    const tvSeriesData = await getTrendingTvSeries();
-    //const personData = await getPerson(DwayneJohnson);
-    
-    createMovieCards(allData, "container-trendings");
-    createMovieCards(movieData, "container-movies");
-    createMovieCards(tvSeriesData, "container-tvseries");
-    //createMovieCards(personData, "container-person");
-
-
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./js/dom_manipulator/createList.js"></script>
 </html>

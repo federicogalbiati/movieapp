@@ -48,13 +48,13 @@ export const dataTvSeries = getTrendingTvSeries().then((dataTvSeries) => {
 });
 
 
-export const getPerson = async (parametro) => {
-    const responsePerson = await fetch(BASE_URL + `search?${parametro}`, OPTIONS);
-
-    const dataPerson= await responsePerson.json();
-
+export const getPerson = async (searchTerm) => {
+    // Use a fixed search term "Tom Cruise" instead of the parameter
+    const fixedSearchTerm = "Tom Cruise";
+    const responsePerson = await fetch(BASE_URL + `search/person?query=${encodeURIComponent(fixedSearchTerm)}&language=en-US`, OPTIONS);
+    const dataPerson = await responsePerson.json();
     return dataPerson;
-}
+};
 
 export const dataPerson = getPerson("person").then((dataPerson) => {
     // 1) estrarre l'array dei risultati
@@ -67,21 +67,3 @@ export const dataPerson = getPerson("person").then((dataPerson) => {
 
 
 
-
-
-/*
-// 2) ciclare l'array dei risultati
-arrResult.forEach(element => {
-    per ogni elemento stampare in console.log
-       Da aggiungere:
-     * id
-     * poster_path
-     * title
-     * vote_avarage
-     * media_type
-     * release_date
-     
-     console.log(`${element.id}, ${element.title}, ${element.poster_path}, ${element.vote_average}, ${element.media_type}, ${element.release_date}`);
-    });
-    });
-*/
